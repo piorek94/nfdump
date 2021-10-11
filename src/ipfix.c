@@ -1272,6 +1272,11 @@ uint8_t		*inBuff;
   				genericFlow->inBytes   *= (uint64_t)sampling_rate;
 				SetFlag(recordHeaderV3->flags, V3_FLAG_SAMPLED);
 			}
+#ifdef DEVEL
+			// check for core dump condition - packet/bytes over treshold 1T
+			assert(genericFlow->inBytes   < 1000000000000);
+			assert(genericFlow->inPackets < 1000000000000);
+#endif
 
 			switch (genericFlow->proto) {
 				case IPPROTO_ICMPV6:

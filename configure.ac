@@ -11,7 +11,7 @@ AM_INIT_AUTOMAKE([subdir-objects])
 AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
-CFLAGS="-g -O3"
+dnl CFLAGS="-g -O3" enable manually defining compiler flags
 AC_PROG_CC([clang gcc])
 AX_CHECK_C11
 CFLAGS="$CFLAGS -Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn -fno-strict-aliasing"
@@ -395,12 +395,12 @@ AC_HEADER_STDBOOL
 # Checks for library functions.
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_FORK
-AC_FUNC_MALLOC
+dnl AC_FUNC_MALLOC sometimes causes error: undefined reference to `rpl_malloc', so moved to AC_CHECK_FUNCS
 AC_FUNC_MKTIME
-AC_FUNC_REALLOC
+dnl AC_FUNC_REALLOC sometimes causes error: undefined reference to `rpl_malloc', so moved to AC_CHECK_FUNCS
 AC_FUNC_STAT
 AC_FUNC_STRFTIME
-AC_CHECK_FUNCS(inet_ntoa socket strchr strdup strerror strrchr strstr scandir)
+AC_CHECK_FUNCS(inet_ntoa socket strchr strdup strerror strrchr strstr scandir malloc realloc)
 
 dnl The res_search may be in libsocket as well, and if it is
 dnl make sure to check for dn_skipname in libresolv, or if res_search
